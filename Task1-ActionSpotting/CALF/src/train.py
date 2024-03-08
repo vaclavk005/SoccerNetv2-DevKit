@@ -8,7 +8,26 @@ import numpy as np
 import math
 from preprocessing import batch2long, timestamps2long
 from json_io import predictions2json
-from SoccerNet.Downloader import getListGames
+from SoccerNet.Downloader import getListGames as getGames
+
+def getListGames(split):
+    matches = ["krajsky_prebor/kosutka_zruc","krajsky_prebor/petrinb_kosutka","krajsky_prebor/robstav_vltavin",
+               "krajsky_prebor/hostoun_admira","krajsky_prebor/slaviab_bohemiansb"]
+    if split == "train":
+        list = getGames(split)
+        list.extend(matches)
+        return list
+    if split == "valid":
+        list = getGames(split)
+        list = list[:3]+list[-4:-2]
+        list.extend(matches)
+        return list
+    if split == "test":
+        list = getGames(split)
+        list.extend(matches)
+        return matches
+    # return ["england_epl/2014-2015/2015-05-17 - 18-00 Manchester United 1 - 1 Arsenal"]
+    # return ["krajsky_prebor/kosutka_zruc"]
 
 def trainer(train_loader,
             val_loader,
@@ -27,6 +46,9 @@ def trainer(train_loader,
 
     best_loss = 9e99
     best_metric = -1
+
+    print(len(train_loader))
+    print(len(val_loader))
 
     for epoch in range(max_epochs):
         best_model_path = os.path.join("models", model_name, "model.pth.tar")
@@ -60,6 +82,7 @@ def trainer(train_loader,
             'best_loss': best_loss,
             'optimizer': optimizer.state_dict(),
         }
+        # Create directory if it does not exist
         os.makedirs(os.path.join("models", model_name), exist_ok=True)
 
         # Remember best loss and save checkpoint

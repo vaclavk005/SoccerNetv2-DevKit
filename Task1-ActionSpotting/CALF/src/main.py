@@ -29,6 +29,9 @@ def main(args):
         dataset_Valid = SoccerNetClips(path=args.SoccerNet_path, features=args.features, split="valid", framerate=args.framerate, chunk_size=args.chunk_size*args.framerate, receptive_field=args.receptive_field*args.framerate, chunks_per_epoch=args.chunks_per_epoch)
         dataset_Valid_metric  = SoccerNetClipsTesting(path=args.SoccerNet_path, features=args.features, split="valid", framerate=args.framerate, chunk_size=args.chunk_size*args.framerate, receptive_field=args.receptive_field*args.framerate)
     
+    print('dataset_Train: ', len(dataset_Train))
+    print('dataset_Valid: ', len(dataset_Valid))
+
     split_to_test = "test"
     if args.challenge:
         split_to_test="challenge"
@@ -65,10 +68,17 @@ def main(args):
     if not args.test_only:
         criterion_segmentation = ContextAwareLoss(K=dataset_Train.K_parameters)
         criterion_spotting = SpottingLoss(lambda_coord=args.lambda_coord, lambda_noobj=args.lambda_noobj)
+        
         optimizer = torch.optim.Adam(model.parameters(), lr=args.LR, 
                                     betas=(0.9, 0.999), eps=1e-07, 
                                     weight_decay=0, amsgrad=False)
+        
+        # optimizer_checkpoint = torch.load(args.load_weights)
+        # optimizer.load_state_dict(optimizer_checkpoint['optimizer'])
+
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', verbose=True, patience=args.patience)
+
+        
 
         # Start training
         trainer(train_loader, val_loader, val_metric_loader, test_loader, 
