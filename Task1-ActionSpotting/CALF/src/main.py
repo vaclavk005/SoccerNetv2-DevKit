@@ -73,8 +73,9 @@ def main(args):
                                     betas=(0.9, 0.999), eps=1e-07, 
                                     weight_decay=0, amsgrad=False)
         
-        # optimizer_checkpoint = torch.load(args.load_weights)
-        # optimizer.load_state_dict(optimizer_checkpoint['optimizer'])
+        optimizer_checkpoint = torch.load(args.load_weights)
+        optimizer.load_state_dict(optimizer_checkpoint['optimizer'])
+        print("Optimizer loaded")
 
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', verbose=True, patience=args.patience)
 

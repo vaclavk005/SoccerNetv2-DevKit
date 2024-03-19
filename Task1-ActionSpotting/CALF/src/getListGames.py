@@ -1,21 +1,28 @@
 from SoccerNet.Downloader import getListGames as getGames
 
 def getListGames(split):
-    matches = ["krajsky_prebor/kosutka_zruc","krajsky_prebor/petrinb_kosutka","krajsky_prebor/robstav_vltavin",
-               "krajsky_prebor/hostoun_admira","krajsky_prebor/slaviab_bohemiansb"]
+    train_matches = ["krajsky_prebor/kosutka_zruc", "krajsky_prebor/cheb_hrebec",
+                     "krajsky_prebor/kosutka_stribro","krajsky_prebor/robstav_vltavin",
+                     "krajsky_prebor/kosutka_myto", "krajsky_prebor/benesov_spoje",
+                     "krajsky_prebor/slaviab_bohemiansb", "krajsky_prebor/klatovy_kosutka"]
+    
+    valid_matches = ["krajsky_prebor/petrinb_kosutka","krajsky_prebor/hostoun_admira"]
+
+    test_matches = ["krajsky_prebor/petrinb_kosutka","krajsky_prebor/hostoun_admira"]
+
     if split == "train":
         list = getGames(split)
-        list = list[:2]+list[-3:]
-        list.extend(matches)
-        return list
+        list = list[0:5] + list[-5:] # 10 SoccerNet
+        # list = list[:50] + list[-50:] # 100 SoccerNet
+        list.extend(train_matches)
+        return list  # 10/100 SoccerNet + 8 own
+        # return train_matches # 8 own
+    
     if split == "valid":
         list = getGames(split)
-        list = list[:3]+list[-4:-2]
-        list.extend(matches)
+        list = list[10:13]+list[-4:-2]
+        list.extend(valid_matches)
         return list
+    
     if split == "test":
-        list = getGames(split)
-        list.extend(matches)
-        return matches
-    # return ["england_epl/2014-2015/2015-05-17 - 18-00 Manchester United 1 - 1 Arsenal"]
-    # return ["krajsky_prebor/kosutka_zruc"]
+        return test_matches
