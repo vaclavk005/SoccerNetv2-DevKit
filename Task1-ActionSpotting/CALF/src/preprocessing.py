@@ -85,6 +85,7 @@ def getNegativeIndexes(labels, params, chunk_size):
         if j-i >= chunk_size: 
             list_indexes.append([i,j])
 
+    print(list_indexes)
     return list_indexes
 
 

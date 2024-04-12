@@ -1,0 +1,23 @@
+{
+    "train_matches" : [
+        "krajsky_prebor/kosutka_zruc",
+        "krajsky_prebor/kosutka_stribro",
+        "krajsky_prebor/kosutka_myto",
+        "krajsky_prebor/slaviab_bohemiansb",
+        "krajsky_prebor/klatovy_kosutka",
+        "krajsky_prebor/cheb_hrebec",
+        "krajsky_prebor/kosutka_nyrsko",
+        "krajsky_prebor/robstav_vltavin",
+        "krajsky_prebor/benesov_spoje",
+        "krajsky_prebor/hostoun_admira"
+    ],    
+    "valid_matches" : [
+        "krajsky_prebor/petrinb_kosutka",
+        "krajsky_prebor/kosutka_nepomuk",
+        "krajsky_prebor/hostoun_admira"   
+    ],
+    "test_matches" : [
+        "krajsky_prebor/petrinb_kosutka",
+        "krajsky_prebor/kosutka_nepomuk"
+    ]
+}

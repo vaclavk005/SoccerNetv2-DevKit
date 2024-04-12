@@ -73,9 +73,9 @@ def main(args):
                                     betas=(0.9, 0.999), eps=1e-07, 
                                     weight_decay=0, amsgrad=False)
         
-        optimizer_checkpoint = torch.load(args.load_weights)
-        optimizer.load_state_dict(optimizer_checkpoint['optimizer'])
-        print("Optimizer loaded")
+        # optimizer_checkpoint = torch.load(args.load_weights)
+        # optimizer.load_state_dict(optimizer_checkpoint['optimizer'])
+        print("Optimizer loaded", optimizer.param_groups[0]['lr'])
 
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', verbose=True, patience=args.patience)
 
@@ -143,8 +143,12 @@ if __name__ == '__main__':
 
     parser.add_argument('--loglevel',   required=False, type=str,   default='INFO', help='logging level')
 
+    parser.add_argument('--json_games',  required=False, type=str,   default="json/matches.json", help='json with game paths')
+
     args = parser.parse_args()
 
+    json_games = args.json_games
+    print(json_games)
 
     # Logging information
     numeric_level = getattr(logging, args.loglevel.upper(), None)
