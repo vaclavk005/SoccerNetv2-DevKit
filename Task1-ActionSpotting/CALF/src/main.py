@@ -77,7 +77,7 @@ def main(args):
         # optimizer.load_state_dict(optimizer_checkpoint['optimizer'])
         print("Optimizer loaded", optimizer.param_groups[0]['lr'])
 
-        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', verbose=True, patience=args.patience)
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=args.factor, verbose=True, patience=args.patience)
 
         
 
@@ -137,6 +137,7 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', required=False, type=int,   default=32,     help='Batch size' )
     parser.add_argument('--LR',       required=False, type=float,   default=1e-03, help='Learning Rate' )
     parser.add_argument('--patience', required=False, type=int,   default=25,     help='Patience before reducing LR (ReduceLROnPlateau)' )
+    parser.add_argument('--factor', required=False, type=float,   default=0.1,     help='Factor (ReduceLROnPlateau)' )
 
     parser.add_argument('--GPU',        required=False, type=int,   default=-1,     help='ID of the GPU to use' )
     parser.add_argument('--max_num_worker',   required=False, type=int,   default=4, help='number of worker to load data')

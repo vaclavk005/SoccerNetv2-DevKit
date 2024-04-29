@@ -7,7 +7,7 @@ import torch
 import numpy as np
 import math
 from preprocessing import batch2long, timestamps2long
-from json_io import predictions2json
+from json_io import predictions2json, save_losses
 # from SoccerNet.Downloader import getListGames as getGames
 from getListGames import getListGames
 
@@ -33,6 +33,7 @@ def trainer(train_loader,
     for epoch in range(max_epochs):
         best_model_path = os.path.join("models", model_name, "model.pth.tar")
 
+        print("LR: ", optimizer.param_groups[0]['lr'])
 
         # train for one epoch
         loss_training = train(
@@ -54,14 +55,13 @@ def trainer(train_loader,
             epoch + 1,
             train = False)
 
-        
-
         state = {
             'epoch': epoch + 1,
             'state_dict': model.state_dict(),
             'best_loss': best_loss,
             'optimizer': optimizer.state_dict(),
         }
+
         # Create directory if it does not exist
         os.makedirs(os.path.join("models", model_name), exist_ok=True)
 
@@ -69,7 +69,8 @@ def trainer(train_loader,
         is_better = loss_validation < best_loss
         best_loss = min(loss_validation, best_loss)
 
-
+        # Save training and validation losses
+        save_losses(loss_training, loss_validation, model_name)
 
         # Save the best model based on loss only if the evaluation frequency too long
         if is_better and evaluation_frequency > max_epochs:
@@ -106,14 +107,13 @@ def trainer(train_loader,
         scheduler.step(loss_validation)
         currLR = optimizer.param_groups[0]['lr']
         if (currLR is not prevLR and scheduler.num_bad_epochs == 0):
-            logging.info("Plateau Reached!")
+            logging.info("Plateau Reached! " + str(epoch) + " LR: " + str(currLR))
 
         if (prevLR < 2 * scheduler.eps and
                 scheduler.num_bad_epochs >= scheduler.patience):
             logging.info(
                 "Plateau Reached and no more reduction -> Exiting Loop")
             break
-
     return
 
 def train(dataloader,

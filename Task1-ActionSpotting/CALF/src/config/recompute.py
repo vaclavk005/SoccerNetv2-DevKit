@@ -5,6 +5,6 @@ list = [[-100, -98, -20, -40, -96, -5, -8, -93, -99, -31, -75, -10, -97, -75, -2
 
 for sublist in list:
     for i in range(len(sublist)):
-        sublist[i] = int(sublist[i] * 0.5)
+        sublist[i] = int(sublist[i] * 0.4)
 
 print(list)

@@ -1,5 +1,16 @@
 import torch
 
+# Event name to label index fororor SoccerNet-V2
+# EVENT_DICTIONARY_V2 = {"Penalty":0,"Goal":1,"Clearance":2,"Ball out of play":3,
+#                        "Throw-in":4,"Foul":5,"Direct free-kick":6,"Corner":7}
+
+# INVERSE_EVENT_DICTIONARY_V2 = {0:"Penalty",1:"Goal",2:"Clearance",3:"Ball out of play",
+#                                4:"Throw-in",5:"Foul",6:"Direct free-kick",7:"Corner"}
+
+# K_V2 = torch.FloatTensor([[-40, -8, -37, -39, -12, -30, -38, -30],
+#                           [-20, -4, -18, -20, -6, -14, -19, -15],
+#                           [20, 24, 18, 20, 6, 14, 19, 15],
+#                           [40, 36, 37, 39, 12, 30, 38, 30]]).cuda()
 
 # Event name to label index fororor SoccerNet-V2
 EVENT_DICTIONARY_V2 = {"Penalty":0,"Kick-off":1,"Goal":2,"Substitution":3,"Offside":4,"Shots on target":5,
@@ -17,3 +28,8 @@ K_V2 = torch.FloatTensor([[-100, -98, -20, -40, -96, -5, -8, -93, -99, -31, -75,
                           [-50, -49, -10, -20, -48, -3, -4, -46, -50, -15, -37, -5, -49, -38, -10, -42, -9],
                           [50, 49, 60, 10, 48, 3, 4, 46, 50, 15, 37, 5, 49, 38, 10, 42, 9],
                           [100, 98, 90, 20, 96, 5, 8, 93, 99, 31, 75, 10, 97, 75, 20, 84, 18]]).cuda()
+
+# K_V2 = torch.FloatTensor([[-40, -39, -8, -16, -38, -5, -5, -37, -39, -12, -30, -4, -38, -30, -8, -33, -7],
+#                           [-20, -19, -4, -8, -19, -3, -3, -18, -20, -6, -14, -2, -19, -15, -4, -16, -3],
+#                           [20, 19, 24, 4, 19, 3, 3, 18, 20, 6, 14, 2, 19, 15, 4, 16, 3],
+#                           [40, 39, 36, 8, 38, 5, 5, 37, 39, 12, 30, 4, 38, 30, 8, 33, 7]]).cuda()

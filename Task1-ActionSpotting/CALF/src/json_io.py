@@ -4,6 +4,27 @@ import numpy as np
 from SoccerNet.Downloader import getListGames
 from config.classes import EVENT_DICTIONARY_V2, INVERSE_EVENT_DICTIONARY_V2
 
+def save_losses(training_loss, validation_loss, model_name):
+    json_path = os.path.join("models", model_name, "losses.json")
+
+    # Check if the JSON file exists
+    if os.path.exists(json_path):
+        # If the file exists, load the data from the file
+        with open(json_path, "r") as f:
+            losses_dict = json.load(f)
+    else:
+        # If the file doesn't exist, initialize an empty dictionary
+        losses_dict = {
+            "training_losses": [],
+            "validation_losses": []
+        }
+        
+    losses_dict["training_losses"].append(training_loss)
+    losses_dict["validation_losses"].append(validation_loss)
+
+    with open(json_path, "w") as f:
+        json.dump(losses_dict, f)
+
 def label2vector(folder_path, num_classes=17, framerate=2):
 
     label_path = folder_path + "/Labels-v2.json"
