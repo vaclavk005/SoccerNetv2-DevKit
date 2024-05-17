@@ -36,7 +36,7 @@ class SoccerNetClips(Dataset):
         self.chunks_per_epoch = chunks_per_epoch
 
         self.dict_event = EVENT_DICTIONARY_V2
-        self.num_classes = 8
+        self.num_classes = 17
         self.labels="Labels-v2.json"
         self.K_parameters = K_V2*framerate 
         self.num_detections =15
@@ -168,7 +168,7 @@ class SoccerNetClipsTesting(Dataset):
         self.framerate = framerate
 
         self.dict_event = EVENT_DICTIONARY_V2
-        self.num_classes = 8
+        self.num_classes = 17
         self.labels="Labels-v2.json"
         self.K_parameters = K_V2*framerate
         self.num_detections =15

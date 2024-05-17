@@ -1,6 +1,7 @@
 import torch
 
-# Event name to label index fororor SoccerNet-V2
+# 8 classes
+# # Event name to label index fororor SoccerNet-V2
 # EVENT_DICTIONARY_V2 = {"Penalty":0,"Goal":1,"Clearance":2,"Ball out of play":3,
 #                        "Throw-in":4,"Foul":5,"Direct free-kick":6,"Corner":7}
 
@@ -9,9 +10,10 @@ import torch
 
 # K_V2 = torch.FloatTensor([[-40, -8, -37, -39, -12, -30, -38, -30],
 #                           [-20, -4, -18, -20, -6, -14, -19, -15],
-#                           [20, 24, 18, 20, 6, 14, 19, 15],
-#                           [40, 36, 37, 39, 12, 30, 38, 30]]).cuda()
+#                           [20, 10, 18, 20, 6, 14, 19, 15],
+#                           [40, 20, 37, 39, 12, 30, 38, 30]]).cuda()
 
+# 17 classes
 # Event name to label index fororor SoccerNet-V2
 EVENT_DICTIONARY_V2 = {"Penalty":0,"Kick-off":1,"Goal":2,"Substitution":3,"Offside":4,"Shots on target":5,
                                 "Shots off target":6,"Clearance":7,"Ball out of play":8,"Throw-in":9,"Foul":10,

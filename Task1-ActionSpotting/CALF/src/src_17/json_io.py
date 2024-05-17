@@ -47,7 +47,7 @@ def save_losses(training_loss, validation_loss, model_name):
     with open(json_path, "w") as f:
         json.dump(losses_dict, f)
 
-def label2vector(folder_path, num_classes=8, framerate=2):
+def label2vector(folder_path, num_classes=17, framerate=2):
 
     label_path = folder_path + "/Labels-v2.json"
 
@@ -136,7 +136,7 @@ def predictions2json(predictions_half_1, predictions_half_2, output_path, game_i
     with open(output_file_path, 'w') as output_file:
         json.dump(json_data, output_file, indent=4)
 
-def predictions2vector(folder_path, predictions_path, num_classes=8, framerate=2):
+def predictions2vector(folder_path, predictions_path, num_classes=17, framerate=2):
 
     predictions_path = predictions_path + "/Predictions-v2.json"
 
